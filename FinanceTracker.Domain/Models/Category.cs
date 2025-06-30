@@ -16,7 +16,7 @@ namespace FinanceTracker.Domain.Models
         public CategoryType Type { get; set; }
 
         public virtual User User { get; set; }
-        public virtual ICollection<Transaction> Transactions { get; set; }
-        public virtual ICollection<Budget> Budgets { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+        public virtual ICollection<Budget> Budgets { get; set; } = new List<Budget>();
     }
 }
