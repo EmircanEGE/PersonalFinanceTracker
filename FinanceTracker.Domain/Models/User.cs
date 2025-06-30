@@ -2,9 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FinanceTracker.Domain.Models
 {
-    public class User
+    public class User : BaseEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
         [Required] [EmailAddress] [MaxLength(255)]
         public string Email { get; set; }
         [Required] [MaxLength(50)]
@@ -13,6 +12,5 @@ namespace FinanceTracker.Domain.Models
         public string LastName { get; set; }
         [Required] [MaxLength(100)]
         public string Password { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
