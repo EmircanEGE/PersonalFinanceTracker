@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceTracker.Infrastructure.Repositories
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly AppDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
-        protected Repository(DbSet<TEntity> dbSet, AppDbContext context)
+        public Repository(AppDbContext context)
         {
-            _dbSet = dbSet;
             _context = context;
+            _dbSet = context.Set<TEntity>();
         }
 
         public async Task AddAsync(TEntity entity)
@@ -33,7 +33,7 @@ namespace FinanceTracker.Infrastructure.Repositories
                 throw new ArgumentException("Invalid ID", nameof(id));
             }
 
-            var entity = _dbSet.Find(id);
+            var entity = await _dbSet.FindAsync(id);
             if (entity == null)
             {
                 throw new KeyNotFoundException($"Entity with ID {id} not found");

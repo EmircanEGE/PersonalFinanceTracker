@@ -13,7 +13,7 @@ namespace FinanceTracker.Application.Services
             _userRepository = userRepository;
         }
 
-        public Task<UserResponseDto> CreateUserAsync(UserCreateDto userCreateDto)
+        public Task CreateUserAsync(UserCreateDto userCreateDto)
         {
             throw new NotImplementedException();
         }
@@ -23,9 +23,24 @@ namespace FinanceTracker.Application.Services
             throw new NotImplementedException();
         }
 
+        public Task<UserResponseDto> GetByEmailAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<UserResponseDto> GetUserByIdAsync(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<bool> IsEmailTakenAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IUserService.CreateUserAsync(UserCreateDto userCreateDto)
+        {
+            return CreateUserAsync(userCreateDto);
         }
     }
 }
