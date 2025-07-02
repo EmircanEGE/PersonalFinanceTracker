@@ -4,10 +4,10 @@ namespace FinanceTracker.Application.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
-        Task<TEntity> GetByIdAsync(Guid id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
         Task AddAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(Guid id);
+        Task<TEntity?> GetByIdAsync(Guid id);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        void Update(TEntity entity);
+        void Delete(TEntity entity);
     }
 }

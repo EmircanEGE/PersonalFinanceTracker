@@ -17,30 +17,13 @@ namespace FinanceTracker.Infrastructure.Repositories
 
         public async Task AddAsync(TEntity entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity), "Entity cannot be null");
-            }
-
             await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<TEntity?> GetByIdAsync(Guid id)
         {
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentException("Invalid ID", nameof(id));
-            }
-
-            var entity = await _dbSet.FindAsync(id);
-            if (entity == null)
-            {
-                throw new KeyNotFoundException($"Entity with ID {id} not found");
-            }
-
-            _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
+            if (id == Guid.Empty) return null;
+            return await _dbSet.FindAsync(id);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -48,31 +31,14 @@ namespace FinanceTracker.Infrastructure.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(Guid id)
+        public void Update(TEntity entity)
         {
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentException("Invalid ID", nameof(id));
-            }
-        
-            var entity = await _dbSet.FindAsync(id);
-            if (entity == null)
-            {
-                throw new KeyNotFoundException($"Entity with ID {id} not found");
-            }
-
-            return entity;
+            _dbSet.Update(entity);
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public void Delete(TEntity entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity), "Entity cannot be null");
-            }
-
-            _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
+            _dbSet.Remove(entity);
         }
     }
 }
