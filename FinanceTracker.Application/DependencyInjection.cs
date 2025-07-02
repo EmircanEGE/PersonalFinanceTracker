@@ -1,3 +1,4 @@
+using FinanceTracker.Application.Mapping;
 using FinanceTracker.Application.Validators.Account;
 using FinanceTracker.Application.Validators.Budget;
 using FinanceTracker.Application.Validators.Category;
@@ -13,6 +14,8 @@ namespace FinanceTracker.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssemblyContaining<AccountCreateDtoValidator>();
             services.AddValidatorsFromAssemblyContaining<BudgetCreateDtoValidator>();
