@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using FinanceTracker.Domain.Models;
 
 namespace FinanceTracker.Application.Interfaces
@@ -9,5 +10,6 @@ namespace FinanceTracker.Application.Interfaces
         Task<IEnumerable<TEntity>> GetAllAsync();
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

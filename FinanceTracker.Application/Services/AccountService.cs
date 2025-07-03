@@ -1,7 +1,6 @@
 using AutoMapper;
 using FinanceTracker.Application.DTOs.Account;
 using FinanceTracker.Application.Interfaces;
-using FinanceTracker.Application.Interfaces.Repositories;
 using FinanceTracker.Application.Interfaces.Services;
 using FinanceTracker.Domain.Enums;
 using FinanceTracker.Domain.Models;
@@ -19,7 +18,7 @@ namespace FinanceTracker.Application.Services
             _mapper = mapper;
         }
 
-        public async Task CreateAccountAsync(AccountCreateDto accountCreateDto)
+        public async Task<AccountResponseDto> CreateAccountAsync(AccountCreateDto accountCreateDto)
         {
             if (string.IsNullOrEmpty(accountCreateDto.Name))
             {
@@ -41,6 +40,7 @@ namespace FinanceTracker.Application.Services
             var account = _mapper.Map<Account>(accountCreateDto);
             await _unitOfWork.AccountRepository.AddAsync(account);
             await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<AccountResponseDto>(account);
         }
 
         public async Task DeleteAccountAsync(Guid id)
